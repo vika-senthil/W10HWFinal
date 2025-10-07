@@ -2,11 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 900,
   "height": 320,
-  "title": "Number of Crashes per Year (all years)",
+  "title": "Number of Crashes per Year (1908–1947)",
   "data": { "url": "WEEK%2010%20-%20Sheet1.csv", "format": { "type": "csv" } },
   "transform": [
     { "calculate": "toNumber(substring(datum.Date, length(datum.Date)-4, length(datum.Date)))", "as": "Year" },
-    { "filter": "isFinite(datum.Year)" },
+    { "filter": "isFinite(datum.Year) && datum.Year <= 1947" },
     { "aggregate": [ { "op": "count", "as": "CrashCount" } ], "groupby": [ "Year" ] },
     { "sort": [ { "field": "Year", "order": "ascending" } ] }
   ],
