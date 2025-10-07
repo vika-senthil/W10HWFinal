@@ -4,7 +4,6 @@
   "height": 480,
   "title": "Global Plane Crashes (1908–2023)",
   "projection": {"type": "equalEarth"},
-
   "params": [
     {
       "name": "yearSel",
@@ -12,7 +11,6 @@
       "bind": {"input": "range", "min": 1908, "max": 2023, "step": 1, "name": "Year: "}
     }
   ],
-
   "layer": [
     { "data": {"sphere": {}}, "mark": {"type": "geoshape", "fill": "#eef6ff"} },
     { "data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#d0d7de", "strokeWidth": 0.4} },
@@ -23,26 +21,17 @@
       },
       "mark": {"type": "geoshape", "fill": "#e6e6e6", "stroke": "white", "strokeWidth": 0.5}
     },
-
     {
       "data": {
         "url": "https://vika-senthil.github.io/W10HomeWork/WEEK%2010%20-%20Sheet1.csv",
-        "format": {
-          "type": "csv",
-          "parse": { "Latitude": "number", "Longitude": "number", "Fatalities": "number" }
-        }
+        "format": { "type": "csv", "parse": { "Latitude": "number", "Longitude": "number" } }
       },
       "transform": [
-        {"filter": "isFinite(datum.Latitude) && isFinite(datum.Longitude)"},
-        {
-          "calculate": "isFinite(toNumber(datum.Fatalities)) && toNumber(datum.Fatalities) > 0 ? toNumber(datum.Fatalities) : 1",
-          "as": "fatalOK"
-        },
-        {
-          "calculate": "toNumber(substring(datum.Date, length(datum.Date)-4, length(datum.Date)))",
-          "as": "Year"
-        },
-        {"filter": "isFinite(datum.Year) && datum.Year == yearSel"}
+        { "filter": "isFinite(datum.Latitude) && isFinite(datum.Longitude)" },
+        { "calculate": "toNumber(replace(String(datum.Fatalities ?? ''), /[^0-9.]/g, ''))", "as": "fatalOK" },
+        { "calculate": "isFinite(datum.fatalOK) ? datum.fatalOK : 0", "as": "fatalOK" },
+        { "calculate": "toNumber(substring(datum.Date, length(datum.Date)-4, length(datum.Date)))", "as": "Year" },
+        { "filter": "isFinite(datum.Year) && datum.Year == yearSel" }
       ],
       "mark": {"type": "circle", "opacity": 0.75, "stroke": "#333", "strokeWidth": 0.2},
       "encoding": {
@@ -60,6 +49,22 @@
           {"field": "Longitude", "title": "Lon"}
         ]
       }
+    },
+    {
+      "data": { "values": [
+        { "Longitude": 105.0,  "Latitude": 5.0,   "Label": "MH370 (2014)" },
+        { "Longitude": -16.34, "Latitude": 28.48, "Label": "Tenerife (1977)" }
+      ]},
+      "mark": { "type": "text", "fontSize": 12, "fontWeight": "bold", "dx": 8, "dy": -8, "color": "black" },
+      "encoding": {
+        "longitude": {"field": "Longitude", "type": "quantitative"},
+        "latitude": {"field": "Latitude", "type": "quantitative"},
+        "text": {"field": "Label"}
+      }
+    }
+  ]
+}
+
     }
   ]
 }
