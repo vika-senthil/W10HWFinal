@@ -23,12 +23,12 @@
     },
     {
       "data": {
-        "url": "https://vika-senthil.github.io/W10HomeWork/WEEK%2010%20-%20Sheet1.csv",
+        "url": "WEEK%2010%20-%20Sheet1.csv",
         "format": { "type": "csv", "parse": { "Latitude": "number", "Longitude": "number" } }
       },
       "transform": [
         { "filter": "isFinite(datum.Latitude) && isFinite(datum.Longitude)" },
-        { "calculate": "toNumber(replace(String(datum.Fatalities ?? ''), /[^0-9.]/g, ''))", "as": "fatalOK" },
+        { "calculate": "toNumber(datum.Fatalities)", "as": "fatalOK" },
         { "calculate": "isFinite(datum.fatalOK) ? datum.fatalOK : 0", "as": "fatalOK" },
         { "calculate": "toNumber(substring(datum.Date, length(datum.Date)-4, length(datum.Date)))", "as": "Year" },
         { "filter": "isFinite(datum.Year) && datum.Year == yearSel" }
@@ -61,10 +61,6 @@
         "latitude": {"field": "Latitude", "type": "quantitative"},
         "text": {"field": "Label"}
       }
-    }
-  ]
-}
-
     }
   ]
 }
