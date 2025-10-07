@@ -34,16 +34,11 @@
   </div>
 
   <script>
-    // Cache-buster so GitHub Pages doesn't serve stale JSON
-    const v = '?v=' + Date.now();
-    vegaEmbed('#map',   'map.json'   + v, {actions:false}).catch(e => {
-      document.getElementById('mapErr').textContent = 'Map error: ' + (e.message || e);
-      console.error(e);
-    });
-    vegaEmbed('#trend', 'trend.json' + v, {actions:false}).catch(e => {
-      document.getElementById('trendErr').textContent = 'Trend error: ' + (e.message || e);
-      console.error(e);
-    });
+    const v='?v='+Date.now(); // cache-buster so you see updates
+    vegaEmbed('#map','map.json'+v,{actions:false})
+      .catch(e=>{document.getElementById('mapErr').textContent='Map error: '+(e.message||e); console.error(e);});
+    vegaEmbed('#trend','trend.json'+v,{actions:false})
+      .catch(e=>{document.getElementById('trendErr').textContent='Trend error: '+(e.message||e); console.error(e);});
   </script>
 </body>
 </html>
