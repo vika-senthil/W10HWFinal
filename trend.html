@@ -1,0 +1,19 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 320,
+  "title": "Number of Crashes per Year (all years)",
+  "data": { "url": "https://vika-senthil.github.io/W10HomeWork/WEEK%2010%20-%20Sheet1.csv", "format": { "type": "csv" } },
+  "transform": [
+    { "calculate": "toNumber(substring(datum.Date, length(datum.Date)-4, length(datum.Date)))", "as": "Year" },
+    { "filter": "isFinite(datum.Year)" },
+    { "aggregate": [ { "op": "count", "as": "CrashCount" } ], "groupby": [ "Year" ] },
+    { "sort": [ { "field": "Year", "order": "ascending" } ] }
+  ],
+  "mark": { "type": "line", "point": true },
+  "encoding": {
+    "x": { "field": "Year", "type": "quantitative", "title": "Year" },
+    "y": { "field": "CrashCount", "type": "quantitative", "title": "Crashes" },
+    "tooltip": [ { "field": "Year" }, { "field": "CrashCount" } ]
+  }
+}
