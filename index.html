@@ -27,8 +27,10 @@
   </div>
 
   <script>
-    vegaEmbed('#map',  'map.json',   {actions:false}).catch(console.error);
-    vegaEmbed('#trend','trend.json', {actions:false}).catch(console.error);
+    // cache-busting so Pages doesn't serve an old copy
+    const v = '?v=' + Date.now();
+    vegaEmbed('#map',  'map.json'  + v, {actions:false}).catch(console.error);
+    vegaEmbed('#trend','trend.json'+ v, {actions:false}).catch(console.error);
   </script>
 </body>
 </html>
