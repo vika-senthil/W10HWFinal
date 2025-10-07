@@ -14,8 +14,8 @@
   ],
 
   "layer": [
-    { "data": { "sphere": {} },    "mark": { "type": "geoshape", "fill": "#eef6ff" } },
-    { "data": { "graticule": true },"mark": { "type": "geoshape", "stroke": "#d0d7de", "strokeWidth": 0.4 } },
+    { "data": { "sphere": {} },     "mark": { "type": "geoshape", "fill": "#eef6ff" } },
+    { "data": { "graticule": true }, "mark": { "type": "geoshape", "stroke": "#d0d7de", "strokeWidth": 0.4 } },
     {
       "data": {
         "url": "https://unpkg.com/vega-datasets@2.11.0/data/world-110m.json",
@@ -42,7 +42,7 @@
       "encoding": {
         "longitude": { "field": "Longitude", "type": "quantitative" },
         "latitude":  { "field": "Latitude",  "type": "quantitative" },
-        "size":  { "field": "fatalOK", "type": "quantitative", "title": "Fatalities", "legend": {"format": "~s"}, "scale": { "range": [30, 800] } },
+        "size":  { "field": "fatalOK", "type": "quantitative", "title": "Fatalities", "legend": { "format": "~s" }, "scale": { "range": [30, 800] } },
         "color": { "field": "fatalOK", "type": "quantitative", "title": "Fatalities", "scale": { "scheme": "reds" } },
         "tooltip": [
           { "field": "Date", "title": "Date" },
@@ -69,10 +69,6 @@
         "latitude":  { "field": "Latitude",  "type": "quantitative" },
         "text":      { "field": "Label" }
       }
-    }
-  ]
-}
-
     }
   ]
 }
