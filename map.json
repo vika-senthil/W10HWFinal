@@ -32,8 +32,8 @@
       "transform": [
         { "filter": "isFinite(datum.Latitude) && isFinite(datum.Longitude)" },
 
-        { "calculate": "toNumber(replace(String(datum.Fatalities ?? ''), /[^0-9.]/g, ''))", "as": "fatalOK" },
-        { "calculate": "isFinite(datum.fatalOK) ? datum.fatalOK : 0", "as": "fatalOK" },
+        { "calculate": "+datum.Fatalities", "as": "fatalRaw" },
+        { "calculate": "isFinite(datum.fatalRaw) && datum.fatalRaw >= 0 ? datum.fatalRaw : 0", "as": "fatalOK" },
 
         { "calculate": "toNumber(substring(datum.Date, length(datum.Date)-4, length(datum.Date)))", "as": "Year" },
         { "filter": "isFinite(datum.Year) && datum.Year == yearSel" }
